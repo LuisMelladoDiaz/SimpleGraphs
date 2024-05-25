@@ -1,0 +1,9 @@
+# Ignorar archivos y carpetas de __pycache__
+__pycache__/
+*.py[cod]
+
+# Ignorar el entorno virtual
+venv/
+env/
+my_venv/
+*.env
