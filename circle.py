@@ -17,7 +17,7 @@ class Circle:
         self.canvas.tag_bind(self.canvas_id, "<Leave>", self.on_leave)
         self.canvas.tag_bind(self.canvas_id, "<Button-3>", self.on_circle_click)
         self.canvas.tag_bind(self.canvas_id, "<B3-Motion>", self.on_circle_drag)
-        self.canvas.tag_bind(self.canvas_id, "<Double-Button-3>", self.on_circle_double_right_click)  # Vincular doble clic derecho
+        self.canvas.tag_bind(self.canvas_id, "<Double-Button-3>", self.on_circle_double_right_click)
         self.canvas.tag_bind(self.canvas_id, "<Button-2>", lambda event, circle=self: self.on_wheel_click(event, circle))  # Bind del evento de hacer clic con la rueda del ratón
 
         self.edit_circle_entry = tk.Entry(root)
@@ -30,7 +30,8 @@ class Circle:
 
     def on_leave(self, event):
         self.canvas.itemconfig(self.canvas_id, width=2)  
-        self.canvas.itemconfig(self.canvas_id, outline="black")  
+        self.canvas.itemconfig(self.canvas_id, outline="black") 
+
     def on_circle_click(self, event):
         self.start_x = event.x
         self.start_y = event.y

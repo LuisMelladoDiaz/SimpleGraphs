@@ -41,7 +41,7 @@ class GraphApp:
         draw_segment_btn.pack(side=tk.LEFT)
     
     def add_legend(self):
-        legend_text = "Left click -> Draw Node/Edge\nRight Click -> Move Node \nDouble Right Click -> Rename Node\nMouse Wheel Click -> Change Color"
+        legend_text = "Left click -> Draw Node/Edge\nRight Click -> Move Node \nDouble Right Click -> Rename Node\nMouse Wheel Click -> Change Color/Direction"
         legend_label = tk.Label(self.root, text=legend_text, anchor="se", justify="right", bg="lightgrey", fg="black")
         legend_label.pack(side=tk.RIGHT, padx=10, pady=10)
 
@@ -85,7 +85,7 @@ class GraphApp:
                     self.start_circle = circle
                 else:
                     if self.start_circle != circle:
-                        segment = Segment(self.canvas, self.start_circle, circle)
+                        segment = Segment(self.canvas, self.start_circle, circle, self.root)
                         self.segments.append(segment)
                         self.start_circle.segments.append(segment)
                         circle.segments.append(segment)
