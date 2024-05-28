@@ -6,7 +6,7 @@ def load_graph_from_csv(filename):
     G = nx.DiGraph()
     node_colors = {}
     
-    with open(filename, newline='') as csvfile:
+    with open(f'graphs\{filename}.csv', newline='') as csvfile:
         reader = csv.reader(csvfile)
         nodes_section = True
         
@@ -28,18 +28,23 @@ def add_directed_edge(G, origin, target, direction, weight):
         G.add_edge(target, origin, weight=weight)
     elif direction == 'to_destination':
         G.add_edge(origin, target, weight=weight)
-    elif direction == 'bidirectional':
+    else:
         G.add_edge(origin, target, weight=weight)
         G.add_edge(target, origin, weight=weight)
     return G
 
-def draw_graph(filename):
-    G, node_colors = load_graph_from_csv(f'graphs\{filename}.csv')
-    pos = nx.circular_layout(G)
+def draw_graph(filename, path=None):
+    G, node_colors = load_graph_from_csv(filename)
 
+    pos = nx.spring_layout(G)
     node_color_values = [node_colors[node] for node in G.nodes()]
 
     nx.draw(G, pos, with_labels=True, node_color=node_color_values, edge_color='gray', node_size=2000, font_size=20, font_color='black', arrows=True)
     nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): d['weight'] for u, v, d in G.edges(data=True)})
+
+    if path != None:
+        path_edges = list(zip(path, path[1:]))
+        print(path_edges)
+        nx.draw_networkx_edges(G, pos, edgelist=path_edges, edge_color='red', width=1)
 
     plt.show()
