@@ -8,7 +8,7 @@ class Circle:
         self.radius = radius
         self.name = name
         self.color = color  
-        self.canvas_id = self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, outline=self.color, width=2)
+        self.canvas_id = self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, outline=self.color, width=3)
         self.text_id = self.canvas.create_text(x, y - radius - 10, text=self.name, fill=self.color)  # Etiqueta de texto encima del círculo
         self.segments = []
         self.editing_name = False
@@ -25,11 +25,11 @@ class Circle:
         self.edit_circle_entry.bind("<FocusOut>", self.update_circle_name)
 
     def on_enter(self, event):
-        self.canvas.itemconfig(self.canvas_id, width=3)
+        self.canvas.itemconfig(self.canvas_id, width=4)
         self.canvas.itemconfig(self.canvas_id, outline="blue")
 
     def on_leave(self, event):
-        self.canvas.itemconfig(self.canvas_id, width=2)  
+        self.canvas.itemconfig(self.canvas_id, width=3)  
         self.canvas.itemconfig(self.canvas_id, outline="black") 
 
     def on_circle_click(self, event):
@@ -79,3 +79,7 @@ class Circle:
         next_color = colors[next_color_index]
         circle.color = next_color
         self.canvas.itemconfig(circle.canvas_id, fill=circle.color)  
+
+    def delete(self, circle):
+        self.canvas.delete(circle.canvas_id)
+        self.canvas.delete(circle.text_id)

@@ -112,3 +112,8 @@ class Segment:
                 pass
             self.edit_segment_weight.place_forget()
             self.editing_weight = False
+
+    def delete(self, segment):
+        self.canvas.delete(segment.canvas_id)
+        self.canvas.delete(segment.text_id)
+        self.canvas.delete(segment.rect_id)
