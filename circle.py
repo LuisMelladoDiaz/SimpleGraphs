@@ -83,3 +83,6 @@ class Circle:
     def delete(self, circle):
         self.canvas.delete(circle.canvas_id)
         self.canvas.delete(circle.text_id)
+
+    def __str__(self):
+        return f"Node(name={self.name}, color={self.color})"

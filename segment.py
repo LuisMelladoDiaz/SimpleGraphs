@@ -117,3 +117,6 @@ class Segment:
         self.canvas.delete(segment.canvas_id)
         self.canvas.delete(segment.text_id)
         self.canvas.delete(segment.rect_id)
+
+    def __str__(self):
+        return f"Node(origin={self.circle1.name}, target={self.circle2.name}, direction={self.direction}, weight={self.weight})"

@@ -1,0 +1,9 @@
+NODE,Home,cyan
+NODE,Park,green
+NODE,Restaurant,yellow
+NODE,Market,pink
+EDGE,Home,Park,to_origin,1.0
+EDGE,Park,Market,none,1.0
+EDGE,Home,Market,bidirectional,5.0
+EDGE,Market,Restaurant,bidirectional,2.0
+EDGE,Restaurant,Park,to_destination,10.0

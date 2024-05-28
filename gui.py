@@ -1,7 +1,9 @@
 import tkinter as tk
 import math
-
+import csv
+from tkinter import filedialog
 from circle import Circle
+from graph_converter import draw_graph
 from segment import Segment
 
 
@@ -28,6 +30,21 @@ class GraphApp:
         self.canvas.bind("<B1-Motion>", self.on_canvas_drag)
         self.canvas.bind("<ButtonRelease-1>", self.on_canvas_release)
 
+    def on_save(self):
+        filename = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+        if filename:
+            with open(filename, 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+
+                for circle in self.circles:
+                    writer.writerow(['NODE', circle.name, circle.color])
+                
+                for segment in self.segments:
+                    writer.writerow(['EDGE', segment.circle1.name, segment.circle2.name, segment.direction, segment.weight])
+
+            draw_graph(filename)
+
+
     def setup_ui(self):
         toolbar = tk.Frame(self.root)
         toolbar.pack(side=tk.TOP, fill=tk.X)
@@ -43,6 +60,10 @@ class GraphApp:
 
         edit_btn = tk.Radiobutton(toolbar, text="Edit", variable=self.draw_mode, value="edit", command=lambda: self.change_cursor("arrow"))
         edit_btn.pack(side=tk.LEFT)
+
+        button = tk.Button(toolbar, text="SAVE", command=lambda: self.on_save())
+        button.pack(side=tk.LEFT)
+
 
     def change_cursor(self, cursor_type):
         self.root.config(cursor=cursor_type)
@@ -109,7 +130,6 @@ class GraphApp:
                 return
         for segment in self.segments:
             if self.is_on_segment(segment, x, y):
-                print("got here")
                 self.delete_segment(segment)
                 return
 
@@ -154,6 +174,7 @@ class GraphApp:
         circle.delete(circle)
 
     def delete_segment(self, segment):
+        self.segments.remove(segment)
         segment.delete(segment)
 
     def move_circle(self, x, y):

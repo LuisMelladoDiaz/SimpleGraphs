@@ -1,0 +1,3 @@
+NODE,A,yellow
+NODE,B,green
+EDGE,A,B,bidirectional,4.0
